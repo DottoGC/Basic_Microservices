@@ -9,9 +9,13 @@ api = Api(app)
 class Repartidor(Resource):
     repartidor= 'Goku Super Sayajin'
     estado= 'En camino'
+    pedidoCliente= ''
+    direccion= ''
+    cliente= ''
 
     def get(self):
         data = {
+            'repartidor': Repartidor.repartidor,
             'estado': Repartidor.estado
         }
 
@@ -20,15 +24,12 @@ class Repartidor(Resource):
 
 
     def post(self):     
-        Pedido.pedidoCliente = request.json['Pedido']   
-        Pedido.cliente = request.json['Cliente']
-        Pedido.direccion = request.json['Direccion']
-        Pedido.telefono = request.json['Telefono']
-        Pedido.estado = request.json['Estado']
+        Repartidor.pedidoCliente = request.json['Pedido']   
+        Repartidor.cliente = request.json['Cliente']
+        Repartidor.direccion = request.json['Direccion']        
         
-        
-        print('Nuevo pedido realizado')
-        return {'status': 'Nuevo pedido realizado.'}
+        print('Nueva solicitud de entrega de Restaurante')
+        return {'status': 'Nuevo solicitd de entrega de pedido realizada.'}
 
 
 api.add_resource(Repartidor, '/repartidor')  # Route_1

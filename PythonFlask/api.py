@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from sqlalchemy import create_engine
+import requests
+import json
 
 app = Flask(__name__)
 api = Api(app)
@@ -30,8 +32,17 @@ class Pedido(Resource):
         Pedido.direccion = request.json['Direccion']
         Pedido.telefono = request.json['Telefono']
         Pedido.estado = request.json['Estado']
-        
-        
+
+
+        endpoint = "http://localhost:5001/repartidor"
+        data = {
+        "Pedido" : "Quesohamburguesa Doble",
+        "Cliente" :"Otto Guarchaj",
+        "Direccion" : "Zona 8 Mixco"
+        }
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        response = requests.post(endpoint, data=json.dumps(data),headers=headers)
+
         print('Nuevo pedido realizado')
         return {'status': 'Nuevo pedido realizado.'}
 
