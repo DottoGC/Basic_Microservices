@@ -21,7 +21,6 @@ class Pedido(Resource):
             'Cliente': Pedido.cliente,
             'estado': Pedido.estado
         }
-
         print('Enviando estado de pedido al cliente')
         return jsonify(data)
 
@@ -42,6 +41,7 @@ class Pedido(Resource):
         }
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         response = requests.post(endpoint, data=json.dumps(data),headers=headers)
+
 
         print('Nuevo pedido realizado')
         return {'status': 'Nuevo pedido realizado.'}
