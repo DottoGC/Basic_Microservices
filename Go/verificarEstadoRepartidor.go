@@ -10,9 +10,9 @@ import (
 
 func httpExampleGetJson() {
 	fmt.Println("--- Solicitando estado del pedido al restaurante ---")
-	//log.Println("Starting server. Listening on port 8080.")
-	//	get http example
-	resp, err := http.Get("http://localhost:5001/repartidor")
+
+	//resp, err := http.Get("http://localhost:5001/repartidor")
+	resp, err := http.Get("http://localhost:3000/repartidores")
 	if err != nil {
 		log.Fatal(err)
 	}

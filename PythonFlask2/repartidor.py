@@ -19,21 +19,22 @@ class Repartidor(Resource):
             'estado': Repartidor.estado
         }
 
-        print('Enviando estado del repartidor al cliente')
+        print('Enviando estado del repartidor al cliente a travez de ESB')
         return jsonify(data)
 
 
     def post(self):     
-        Repartidor.pedidoCliente = request.json['Pedido']   
-        Repartidor.cliente = request.json['Cliente']
-        Repartidor.direccion = request.json['Direccion']        
+        Repartidor.pedidoCliente = request.json['pedido']   
+        Repartidor.cliente = request.json['cliente']
+        Repartidor.direccion = request.json['direccion']        
         
-        print('Nueva solicitud de entrega de Restaurante')
-        return {'status': 'Nuevo solicitd de entrega de pedido realizada.'}
+        print('Nueva solicitud de entrega de Restaurante a travez de ESB..')
+        return {'status': 'Nueva solicitd de entrega recibido por el Repartidor mediante ESB.'}
 
 
-api.add_resource(Repartidor, '/repartidor')  # Route_1
+
+api.add_resource(Repartidor, '/repartidores')  # Route_1
 
 
 if __name__ == '__main__':
-     app.run(port='5001')
+     app.run(port='5000')

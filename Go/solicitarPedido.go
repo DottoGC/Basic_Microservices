@@ -10,11 +10,11 @@ import (
 )
 
 type PedidoCliente struct {
-	Pedido string `json:"Pedido"`
-	Cliente string `json:"Cliente"`
-	Direccion string `json:"Direccion"`
-	Telefono string `json:"Telefono"`
-	Estado string `json:"Estado"`
+	Pedido string `json:"pedido"`
+	Cliente string `json:"cliente"`
+	Direccion string `json:"direccion"`
+	Telefono string `json:"telefono"`
+	Estado string `json:"estado"`
 }
 
 
@@ -35,7 +35,8 @@ func httpExamplePostJson() {
 		log.Fatalln(err)
 	}
 
-	resp, err := http.Post("http://localhost:5000/pedidos", "application/json", bytes.NewBuffer(pedidoJson))
+	//resp, err := http.Post("http://localhost:5000/pedidos", "application/json", bytes.NewBuffer(pedidoJson))
+	resp, err := http.Post("http://localhost:3000/pedidos", "application/json", bytes.NewBuffer(pedidoJson))
 	if err != nil {
 		log.Fatalln(err)
 	}

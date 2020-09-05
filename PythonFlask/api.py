@@ -17,38 +17,43 @@ class Pedido(Resource):
 
     def get(self):
         data = {
-            'Pedido': Pedido.pedidoCliente,
-            'Cliente': Pedido.cliente,
-            'estado': Pedido.estado
+            'pedido': Pedido.pedidoCliente,
+            'cliente': Pedido.cliente,
+            'estado': 'Preparando',
+            'direccion': Pedido.direccion,
+            'telefono': Pedido.telefono
         }
-        print('Enviando estado de pedido al cliente')
+        print('Enviando estado de pedido del cliente al ESB')
         return jsonify(data)
 
 
     def post(self):     
-        Pedido.pedidoCliente = request.json['Pedido']   
-        Pedido.cliente = request.json['Cliente']
-        Pedido.direccion = request.json['Direccion']
-        Pedido.telefono = request.json['Telefono']
-        Pedido.estado = request.json['Estado']
+        print('Nuevo pedido recibido mediante ESB')
+        Pedido.pedidoCliente = request.json['pedido']   
+        Pedido.cliente = request.json['cliente']
+        Pedido.direccion = request.json['direccion']
+        Pedido.telefono = request.json['telefono']
+        Pedido.estado = request.json['estado']
+        
 
-
-        endpoint = "http://localhost:5001/repartidor"
+        print('Enviando solicitud de entrega para Repartidor al ESB')
+        #endpoint = "http://localhost:5001/repartidor"
+        endpoint = "http://localhost:3000/repartidores"
         data = {
-        "Pedido" : "Quesohamburguesa Doble",
-        "Cliente" :"Otto Guarchaj",
-        "Direccion" : "Zona 8 Mixco"
+            "pedido" : Pedido.pedidoCliente,
+            "cliente" :Pedido.cliente,
+            "direccion" : Pedido.direccion
         }
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         response = requests.post(endpoint, data=json.dumps(data),headers=headers)
+        print(response.status_code)
+        
+        return {'status': 'Nuevo pedido recibido por el Restaurante mediante ESB.'}
 
-
-        print('Nuevo pedido realizado')
-        return {'status': 'Nuevo pedido realizado.'}
 
 
 api.add_resource(Pedido, '/pedidos')  # Route_1
 
 
 if __name__ == '__main__':
-     app.run(port='5000')
+     app.run(port='4000')
