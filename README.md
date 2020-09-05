@@ -29,3 +29,6 @@
 
 	Comando para ejecutar microservicios:
     > python archivo.py
+
+# Video de funcionamiento:
+https://www.youtube.com/watch?v=6GEe2MXIzWI&feature=youtu.be
